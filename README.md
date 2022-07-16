@@ -14,7 +14,7 @@ ip a s (leave this open in a different terminal tab. You will need to refernce i
 route (leave this open in a different terminal tab.)
 msfconsole (leave this open in a different terminal tab.)
 ```
-Begin to Enumerate -> research/probe findings -> exploit -> Enumerate new resources.
+Begin to Enumerate -> research/probe findings -> exploit -> Post Exploitation/Enumerate new resources.
 
 ------------
 
@@ -33,12 +33,11 @@ nmap ip/24 -Pn -p 8,20,21,22,23,53,67,78,80,110,137,161,443,445,1433,3306,
 #### Research/probe findings
 ###### Services
 msfconsole
-- check all services found with "search
+- check all services found with "search servicename"
 
 ftp
 - null session
 - live password attack
-- sqlmap
 
 ssh/telnet
 - null session
@@ -55,18 +54,27 @@ http/https
 netbios
 
 smb
+- null session
+- smbclient
 
 sql
 - null session using smbclient.
 - sqlmap
-- 
+- nmap scripts
 
 #### Exploitation
 metasploit/meterpreter
 
 nc
 
-
+#### Post Exploitation/Enumerate new resources
+Got shell/root?
+```bash
+cat etc/shadow
+cat etc/passwd
+sudo /usr/sbin/unshadow /etc/passwd /etc/shadow > unshadowed.password.db
+route
+```
 
 ## Lab Notes
 
