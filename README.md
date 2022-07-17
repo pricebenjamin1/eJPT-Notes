@@ -21,15 +21,20 @@ Begin to Enumerate -> research/probe findings -> exploit -> Post Exploitation/En
 #### Unumeration
 ```bash
 nmap, fping, masscan.
-nmap ip/24 -sn
-nmap ip.1-3,32,53-58 -sV -sC -O -p- > mysubnetnmappscan.txt
+nmap ipaddress/24 -sn
+nmap ipaddress.1-3,32,53-58 -sV -sC -O -p- > mysubnetnmappscan.txt
 fping -g 192.168.5.0/24 -a -q > mysubnetfpingscan.txt
 ```
 This scans the network by ignoring the ping response and checking ports. Run this while doing other things.
 ```bash
-nmap ip/24 -Pn -p 8,20,21,22,23,53,67,78,80,110,137,161,443,445,1433,3306,
+nmap ipaddress/24 -Pn -p 8,20,21,22,23,53,67,78,80,110,137,161,443,445,1433,3306,
 ```
-
+More specifically, hit a single target with all of nmaps scripts or a specific test.
+```bash
+nmap ip --script=* --script-args=unsafe=1
+nmap --script vuln --script-args=unsafe=1 ipaddress
+/usr/share/nmap/scripts/
+```
 #### Research/probe findings
 ###### Services
 msfconsole
@@ -46,16 +51,20 @@ ssh/telnet
 http/https
 - look at server service, and content managmenet service.
 - run dirbuster/dirb to enumerate.
+--/usr/share/wordlists/dirb/common.txt
+--http://demo.ine.local:80/robots.txt
 - look for XSS or SQLi. Use burpsuite to analyze/test "easily". Manually test and use xss/sqlmap.
 --add SLQi examples here
 --add XSS examples here
 - browse the website.
+- feroxbuster
 
 netbios
 
 smb
 - null session
 - smbclient
+- feroxbuster
 
 sql
 - null session using smbclient.
@@ -63,11 +72,16 @@ sql
 - nmap scripts
 
 #### Exploitation
-metasploit/meterpreter
+Metasploit/Meterpreter
 
-nc
+
 
 #### Post Exploitation/Enumerate new resources
+Find a type of RCE?
+[All Reverse Shells](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md "All Reverse Shells")
+netcat
+[Netcat Cheatsheet](https://quickref.me/nc "Netcat Cheatsheet")
+
 Got shell/root?
 ```bash
 cat etc/shadow
