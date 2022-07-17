@@ -131,7 +131,11 @@ ip.addr == 10.10.14.22 and tcp.port == 8080
 tcp.flags.syn == 1 and tcp.flags.ack ==0
 eth.dst == ff:ff:ff:ff:ff:ff
 ```
-Identify routers by 
+Identify routers by:
+> Look at packets that are entering your /24 network.
+The destination mac address should be the mac address of the router but not match the dest ip mac.
+Set a filter in wireshark to make all packet's destination mac address = router mac address.(last command above)
+If a lot of different subnets are targeting this mac address as their destination mac address, it is a router.
 
 Working with routes:
 ```bash
