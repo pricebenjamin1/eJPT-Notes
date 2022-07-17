@@ -18,7 +18,7 @@ Begin to Enumerate -> research/probe findings -> exploit -> Post Exploitation/En
 
 ------------
 
-#### Unumeration
+#### Enumeration
 ```bash
 nmap, fping.
 nmap ipaddress/24 -sn
