@@ -1,4 +1,5 @@
 ## General Notes
+
 **All Tools**
 nmap, XXSer, sqlmap, mfsconsole, metasploit, meterpreter, enum4linux, nikto, dirb, dirbuster, feroxbuster, smbclient, sublist3r, fping, masscan, netstat, ffuf, cewl, hydra, john, wpscan, msf, smbclient, nmblookup, wirshark, python, python3, gzip, cat, grep, find, nc, office2john.py,
 
@@ -43,7 +44,7 @@ msfconsole
 ftp
 - null session
 - live password attack
---ls, get filename, cd.
+- `ls, get filename, cd.`
 
 ssh/telnet
 - null session
@@ -55,18 +56,27 @@ http/https
 --/usr/share/wordlists/dirb/common.txt
 --http://demo.ine.local:80/robots.txt
 - look for XSS or SQLi. Use burpsuite to analyze/test "easily". Manually test and use xss/sqlmap.
---SLQi: `' OR 1=1` `and 1=1; -- -` `or ‘a’=’a’; -- -`
---XSS: `<script>alert (1)</script>` `<i>some text</i>` `<script>alert(document.cookie)</script>`
+- SLQi: `' OR 1=1` `and 1=1; -- -` `or ‘a’=’a’; -- -`
+- XSS: `<script>alert (1)</script>` `<i>some text</i>` `<script>alert(document.cookie)</script>`
 - browse the website.
 - feroxbuster
 - sublist3r
 - dirbuster
-- gobuster dir -u http://10.10.10.160 -w /usr/share/wordlists/dirb/common.txt -t 16
-- ffuf -w wordlist.txt -u http://example.com/FUZZ
+- gobuster `dir -u http://10.10.10.160 -w /usr/share/wordlists/dirb/common.txt -t 16`
+- `ffuf -w wordlist.txt -u http://example.com/FUZZ`
 - use the "cookie editor" addon in Firefox.
 
 netbios
-- Null Session commands
+Some commands:
+```bash
+smbclient -L demo.ine.local -N
+smbclient -L demo.ine.local
+nmblookup -A demo.ine.local
+enum4linux -a demo.ine.local
+smbmap -H demo.ine.local
+enum4linux -d -S demo.ine.local
+smbclient //demo.ine.local/public -N
+```
 
 smb
 - null session
@@ -86,6 +96,7 @@ sql
 search exploit
 use exploit#
 showoptions Check ALL parameters everytime. LHOST has to be on the same subnet.
+set OPTION optionhere
 exploit
 meterpreter shell>getsystem
 meterpreter shell>shell
