@@ -1,7 +1,6 @@
 ## General Notes
-
 **All Tools**
-nmap, XXSer, sqlmap, mfsconsole, metasploit, meterpreter, enum4linux, nikto, dirb, dirbuster, feroxbuster, smbclient, sublist3r, fping, masscan, netstat, ffuf, cewl, hydra, john, wpscan, msf, smbclient, nmblookup, wirshark, python, python3, gzip, cat, grep, find, nc, office2john.py,
+nmap, XXSer, sqlmap, mfsconsole, metasploit, meterpreter, enum4linux, nikto, dirb, dirbuster, feroxbuster, smbclient, sublist3r, fping, masscan, netstat, ffuf, cewl, hydra, john, wpscan, smbclient, nmblookup, wirshark, python, python3, gzip, cat, grep, find, nc, office2john.py,
 
 **Setup**
 Open terminals with multiple tabs. Make sure they are root or "sudo su."
@@ -69,13 +68,18 @@ http/https
 netbios
 Some commands:
 ```bash
-smbclient -L demo.ine.local -N
-smbclient -L demo.ine.local
-nmblookup -A demo.ine.local
-enum4linux -a demo.ine.local
-smbmap -H demo.ine.local
-enum4linux -d -S demo.ine.local
-smbclient //demo.ine.local/public -N
+nbtstat -A ipaddress
+NET VIEW ipaddress
+smbclient -L //ipaddress -N
+smbclient -L //ipaddress
+nmblookup -A //ipaddress
+enum4linux -a //ipaddress
+smbmap -H //ipaddress
+enum4linux -d -S ipaddress
+smbclient //ipaddress/public -N
+NET USE \\IP\IPC$ '' /U:''
+NET USE \\IP\C$ '' /U:''
+WINFO IP -n
 ```
 
 smb
